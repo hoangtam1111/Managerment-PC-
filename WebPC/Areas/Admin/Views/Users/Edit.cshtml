@@ -1,0 +1,20 @@
+﻿@model WebPC.Identity.AppUser
+@{
+    ViewBag.Title = "Edit";
+}
+<link href="~/Css/Users.css" rel="stylesheet" />
+<form action="/admin/users/edit?username=@Model.UserName" method="post" enctype="multipart/form-data">
+    <div class="login">
+        <h2>Chỉnh sửa thông tin tài khoản</h2>
+        <input type="hidden" name="username" value="@Model.UserName" />
+        <input type="text" class="form-control" name="Ten" placeholder="Họ Tên" value="@Model.Name" />
+        <input type="email" class="form-control" name="Email" placeholder="Email của bạn" value="@Model.Email" />
+        <input type="text" class="form-control" name="DiaChi" placeholder="Địa chỉ" value="@Model.DiaChi" />
+        <input type="hidden" class="form-control" name="Username" placeholder="Tài khoản" />
+        <input type="hidden" class="form-control" name="Password" placeholder="Nhập mật khẩu" />
+        <div class="action">
+            <button type="submit" class="btn action-1">Lưu</button>
+            <a href="/admin/users/index" class="btn action-2">Quay lại trang user</a>
+        </div>
+    </div>
+</form>

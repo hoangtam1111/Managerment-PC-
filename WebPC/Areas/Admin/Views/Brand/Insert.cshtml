@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Insert";
+}
+
+<h2>Insert</h2>
+<form action="/admin/brand/insert" method="post" enctype="multipart/form-data">
+    <table class="table table-bordered">
+        <tr>
+            <td><label class="form-label">Tên thương hiệu</label></td>
+            <td><input type="text" class="form-control" id="BrandName" placeholder="Tên thương hiệu" name="BrandName" /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Logo thương hiệu</label></td>
+            <td><input type="text" class="form-control" id="BrandLogo" placeholder="Link logo" name="BrandLogo" /></td>
+        </tr>
+    </table>
+    <button type="submit" class="btn btn-primary">Thêm</button>
+    <a href="/admin/brand" class="btn">Huỷ</a>
+</form>

@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@{
+    int id = ViewBag.Id;
+    WebPC.Models.DatabaseEntities db = new WebPC.Models.DatabaseEntities();
+    List<WebPC.Models.DSSP> cts = db.DSSP.Where(t => t.UserName == User.Identity.Name).ToList();
+    decimal total = 0;
+}
+<link href="~/Css/GioHang.css" rel="stylesheet" />
+<div class="row">
+    <h2>Giỏ Hàng</h2>
+    @if (cts.Count != 0)
+    {
+        <div class="col-lg-8 col-md-12 col-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Ảnh</th>
+                        <th scope="col">Tên SP</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Đơn Giá</th>
+                        <th scope="col">Thành tiền</th>
+                        <th scope="col">Xoá</th>
+                    </tr>
+                </thead>
+                @for (int i = 0; i < cts.Count; i++)
+                {
+                    <tbody>
+                        <tr>
+                            @{
+                                long sl = cts[i].SoLuong;
+                                decimal temp = sl * cts[i].SanPham.Gia;
+                                total += temp;
+                            }
+                            <td><img src="/Content/Images/product/@cts[i].SanPham.Anh" alt="Alternate Text" /></td>
+                            <td><a href="/product/detail/@cts[i].MaSP">@cts[i].SanPham.TenSP</a></td>
+                            <td>
+                                <form action="/GioHang/updateQuantity" method="get" enctype="multipart/form-data">
+                                    <input type="hidden" name="ProId" value="@cts[i].MaSP" />
+                                    <input type="number" class="num" name="SoLuong" value="@cts[i].SoLuong" min="1" />
+                                    <button class="btn" class="update" type="submit"></button>
+                                </form>
+                            </td>
+                            <td>@cts[i].SanPham.Gia.ToString("N0")đ</td>
+                            <td>@(temp.ToString("N0"))đ</td>
+                            <td>
+                                <form action="/GioHang/deleteGioHang/@cts[i].ID" method="post" enctype="multipart/form-data">
+                                    <button class="btn" type="submit"><i class="fas fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+
+            </table>
+        </div>
+        <div class="col-lg-4 col-md-12 col-12">
+            <div class="row">
+                <div class="col-6">Tổng tiền</div>
+                <div class="col-6">@total.ToString("N0") đ</div>
+            </div>
+            <div class="row action-product">
+                <div class="col-6">
+                    <a href="/product" class="btn action-1">TIẾP TỤC MUA</a>
+                </div>
+                <div class="col-6">
+                    <a href="/giohang/buy?username=@User.Identity.Name" class="btn action-2">THANH TOÁN</a>
+                    <form action="/giohang/buy" method="post" enctype="multipart/form-data">
+                        <input type="hidden" class="form-control" id="MaUser" name="MaUser" value="@User.Identity.Name" />
+                        <input type="hidden" class="form-control" id="TongTien" name="TongTien" value="@total" />
+                        <button class="btn action-2" type="submit">THANH TOÁN</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="info-none-product">
+            <img src="https://theme.hstatic.net/200000420363/1001121558/14/empty_cart.png?v=680" width="30%" />
+            <h3>Không có sản phẩm nào trong giỏ hàng</h3>
+            <a href="/product" class="btn">Quay trở lại trang sản phẩm</a>
+        </div>
+    }
+</div>
+<script>
+    var btns = document.querySelectorAll('.update');
+    var elements = document.querySelectorAll('.num');
+    elements.forEach(function (element) {
+        element.addEventListener('change', function () {
+            btns.forEach(function (btn) {
+                btn.click();
+            })
+        })
+    })
+</script>

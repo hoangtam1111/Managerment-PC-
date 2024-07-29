@@ -1,0 +1,21 @@
+﻿@model WebPC.Models.Brand
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Bạn có muốn xóa</h2>
+<form action="/admin/brand/delete/@Model.BrandId" method="post" enctype="multipart/form-data">
+    <table class="table table-bordered">
+        <input type="hidden" name="BrandId" value="@Model.BrandId" />
+        <tr>
+            <td><label class="form-label">Tên thương hiệu</label></td>
+            <td>@Model.BrandName</td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Logo thương hiệu</label></td>
+            <td><img src="@Model.BrandLogo" alt="Alternate Text" /></td>
+        </tr>
+    </table>
+    <button type="submit" class="btn btn-primary">Xóa</button>
+    <a href="/admin/brand" class="btn">Huỷ</a>
+</form>

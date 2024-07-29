@@ -1,0 +1,43 @@
+﻿@model List<WebPC.Models.CTDH>
+@{
+    ViewBag.Title = "buy";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    decimal total = 0;
+}
+<style>
+    img {
+        width:100px;
+    }
+    strong {
+        color: #E02207;
+    }
+</style>
+
+<div class="row">
+    <img src="~/Content/Images/layout/logo.jpg" alt="Alternate Text" />
+    <h2>Phiếu hóa đơn TINHOCNGOISAO.COM</h2>
+    <table class="table table-bordered">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/Content/Images/product/@item.SanPham.Anh" style="height: 50px" class="card-img-top" alt="">
+                </td>
+                <td>
+                    @{ 
+                        decimal temp = item.SanPham.Gia * item.SoLuong;
+                        total += temp;
+                    }
+                    <h5>@item.SanPham.TenSP</h5>
+                    <span>Giá: <strong>@item.SanPham.Gia</strong></span>
+                    <span>Số lượng: <strong>@item.SoLuong</strong></span>
+                    <span>Thành tiền: <strong>@temp</strong></span>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        }
+        <h4>Tổng tiền: <strong>@total</strong></h4>
+    </table>
+</div>

@@ -1,0 +1,289 @@
+﻿
+@{
+    bool dangNhap = false;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="~/Css/layout.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Css/responesive.css">
+    <link rel="stylesheet" href="/home.css">
+    <body>
+        <nav class="nav">
+            <div class="container ">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-3 nav-item">
+                        <a class="navbar-brand" href="/home">
+                            <img src="~/Content/Images/layout/logo.jpg" alt="Alternate Text" />
+                        </a>
+                    </div>
+                    <div class="col-lg-5 col-md-7 col-6 nav-item">
+
+                        <form action="/product/index" class="d-flex">
+                            <input class="form-control" type="search" name="search" value="@ViewBag.Search" placeholder="Tìm kiếm" aria-label="Search">
+                            <button class="btn" type="submit"><i class="fas fa-search" style="color: white"></i></button>
+                        </form>
+                    </div>
+                    <div class="col-lg-3 col-md-1 col-1 nav-item">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="/Home/info?name=@User.Identity.Name">
+                                <i class="fas fa-user"></i>
+                                <span class="item-nav">@User.Identity.Name</span>
+                            </a>
+                            <span> | </span>
+                            <a href="/Home/Logout">
+                                <span class="item-nav">Đăng xuất</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="/Home/Login">
+                                <i class="fas fa-user"></i>
+                                <span class="item-nav">Đăng nhập/ Đăng ký</span>
+                            </a>
+                        }
+                    </div>
+                    <div class="col-lg-2 col-md-1 col-1 nav-item">
+
+                        <a href="/GioHang">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="item-nav">Giỏ hàng</span>
+                        </a>
+                    </div>
+                    <div class="col-1 dropdown icon-bar">
+                        <button class="btn " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+
+                </div>
+                <div class="row">
+                    @{
+                        WebPC.Models.DatabaseEntities db = new WebPC.Models.DatabaseEntities();
+                        List<WebPC.Models.LoaiSP> loaiSP = db.LoaiSP.ToList();
+                    }
+                    <div class="col-3">
+                        <div class="nav-sidebar">
+                            <i class="fas fa-bars"></i>
+                            <a class="product__link" href="/product">DANH  MỤC SẢN PHẨM</a>
+                            <div class="nav-sidebar__list">
+                                <ul>
+                                    @foreach (var item in loaiSP)
+                                    {
+                                        <li class="li-child">
+                                            <a href="/product/index?search=@ViewBag.Search&nameSort=TenSP&loaiSP=@item.MaLoai&brand=@ViewBag.Brand">
+                                                <span>@item.TenLoai</span>
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="nav-menu">
+                            <ul class="nav-navbar">
+                                <li>
+                                    <a href="#"><i class="fas fa-wrench"></i> Lắp đặt phòng net</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fas fa-money-check"></i> Trả góp</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fas fa-money-bill"></i> Bảng giá</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fas fa-sliders-h"></i> Xây dựng cấu hình</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fas fa-shield-alt"></i> Kiểm tra bảo hành</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fas fa-dollar-sign"></i> Thiết bị mining</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </nav>
+        <div class="main">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <h2>HỆ THỐNG SHOWROOM TIN HỌC NGÔI SAO</h2>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="shop-head">
+                            <div class="num">1</div>
+                            <div class="text">★ Showroom Tân Bình</div>
+                        </div>
+                        <ul class="info">
+                            <li><a href=""><strong><i class="fas fa-map-marker-alt"></i></i>28 - 30 Trần Triệu Luật, P.6, Quận Tân Bình, TP.HCM</strong></a></li>
+                            <li><i class="fas fa-phone-alt"></i>0899 000 001</li>
+                            <li><i class="far fa-clock"></i>Thứ 2 - Chủ nhật, 08:30 - 21:00</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="shop-head">
+                            <div class="num">2</div>
+                            <div class="text">★ Showroom Quận 9</div>
+                        </div>
+                        <ul class="info">
+                            <li><a href=""><strong><i class="fas fa-map-marker-alt"></i></i>180 Lê Văn Việt, P. Tăng Nhơn Phú B, Q. 9, TP.HCM</strong></a></li>
+                            <li><i class="fas fa-phone-alt"></i>0899 000 003</li>
+                            <li><i class="far fa-clock"></i>Thứ 2 - Chủ nhật, 09:00 - 20:00</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="shop-head">
+                            <div class="num">3</div>
+                            <div class="text">★ Showroom Bình Thạnh</div>
+                        </div>
+                        <ul class="info">
+                            <li><a href=""><strong><i class="fas fa-map-marker-alt"></i></i>28 - 30 Trần Triệu Luật, P.6, Quận Tân Bình, TP.HCM</strong></a></li>
+                            <li><i class="fas fa-phone-alt"></i>0899 000 004</li>
+                            <li><i class="far fa-clock"></i>Thứ 2 - Chủ nhật, 08:30 - 21:00</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="shop-head">
+                            <div class="num">4</div>
+                            <div class="text">★ Shop THNS+ Quang Trung</div>
+                        </div>
+                        <ul class="info">
+                            <li><a href=""><strong><i class="fas fa-map-marker-alt"></i></i>28 - 30 Trần Triệu Luật, P.6, Quận Tân Bình, TP.HCM</strong></a></li>
+                            <li><i class="fas fa-phone-alt"></i>0899 000 002</li>
+                            <li><i class="far fa-clock"></i>Thứ 2 - Chủ nhật, 08:30 - 21:00</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="shop-head">
+                            <div class="num">5</div>
+                            <div class="text">★ Showroom Đắk Lắk</div>
+                        </div>
+                        <ul class="info">
+                            <li><a href=""><strong><i class="fas fa-map-marker-alt"></i></i>28 - 30 Trần Triệu Luật, P.6, Quận Tân Bình, TP.HCM</strong></a></li>
+                            <li><i class="fas fa-phone-alt"></i>0899 000 005</li>
+                            <li><i class="far fa-clock"></i>Thứ 2 - Chủ nhật, 08:30 - 21:00</li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="shop-policy">
+                            <div class="icon">
+                                <img src="https://theme.hstatic.net/200000420363/1001121558/14/icon_policy_page_1.png?v=519" alt="">
+                            </div>
+                            <div class="text">
+                                <strong>CHÍNH SÁCH GIAO HÀNG</strong>
+                                <p>Nhận hàng và thanh toán tại nhà</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="shop-policy">
+                            <div class="icon">
+                                <img src="https://theme.hstatic.net/200000420363/1001121558/14/icon_policy_page_2.png?v=557" alt="">
+                            </div>
+                            <div class="text">
+                                <strong>ĐỔI TRẢ DỄ DÀNG</strong>
+                                <p>1 đổi 1 trong 7 ngày</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="shop-policy">
+                            <div class="icon">
+                                <img src="https://theme.hstatic.net/200000420363/1001121558/14/icon_policy_page_3.png?v=557" alt="">
+                            </div>
+                            <div class="text">
+                                <strong>THANH TOÁN TIỆN LỢI</strong>
+                                <p>Trả tiền mặt, chuyển khoản, Trà góp 0%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="shop-policy">
+                            <div class="icon">
+                                <img src="https://theme.hstatic.net/200000420363/1001121558/14/icon_policy_page_4.png?v=557" alt="">
+                            </div>
+                            <div class="text">
+                                <strong>HỖ TRỢ NHIỆT TÌNH</strong>
+                                <p>Tư vấn, giải đáp mọi thắc mắc</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="info">
+                            <div class="info-head">
+                                <strong>GIỚI THIỆU THNS</strong>
+                            </div>
+                            <ul class="info-list-item">
+                                <li class="item"><a href="">Về chúng tôi</a></li>
+                                <li class="item"><a href="">Tư vấn mua hàng</a></li>
+                                <li class="item"><a href="">Tuyển dụng</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="info">
+                            <div class="info-head">
+                                <strong>CHÍNH SÁCH CHUNG</strong>
+                            </div>
+                            <ul class="info-list-item">
+                                <li class="item"><a href="">Chính sách trả góp</a></li>
+                                <li class="item"><a href="">Chính sách bảo mật</a></li>
+                                <li class="item"><a href="">Chính sách giải quyết khiếu nại</a></li>
+                                <li class="item"><a href="">Chính sách bảo vệ thông tin cá nhân</a></li>
+                                <li class="item"><a href="">Chính sách bảo hành</a></li>
+                                <li class="item"><a href="">Chính sách đổi - trả hàng</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="info">
+                            <div class="info-head">
+                                <strong>THÔNG TIN KHUYẾN MÃI</strong>
+                            </div>
+                            <ul class="info-list-item">
+                                <li class="item"><a href="">Tổng hợp khuyến mãi</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="info">
+                            <div class="info-head">
+                                <strong>HỖ TRỢ KHÁCH HÀNG</strong>
+                            </div>
+                            <ul class="info-list-item">
+                                <li class="item"><a href="">Tổng hợp Hotline CSKH, phản ánh.</a></li>
+                                <li class="item"><a href="">Thông tin thanh toán</a></li>
+                                <li class="item"><a href="">Lắp đặt phòng net</a></li>
+                                <li class="item"><a href="">Thiết bị Mining</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</html>

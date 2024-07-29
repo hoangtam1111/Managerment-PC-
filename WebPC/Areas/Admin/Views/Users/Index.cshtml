@@ -1,0 +1,36 @@
+﻿@model List<WebPC.Identity.AppUser>
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Css/Users.css" rel="stylesheet" />
+<link href="~/Css/productIndex.css" rel="stylesheet" />
+<div class="insBreadcrumbs">
+    <ul>
+        <li>
+            <a href="/admin/home/index">Trang chủ</a> /
+        </li>
+        <li>
+            <a href="/admin/Users/index">user</a> /
+        </li>
+    </ul>
+</div>
+<a href="/admin/users/insert" style="color: #E02207;">Thêm tài khoản mới</a>
+<table class="table table-bordered">
+    <tr>
+        <th>Tài khoản</th>
+        <th>Email</th>
+        <th>Họ Tên</th>
+        <th>Địa chỉ</th>
+        <th>Chỉnh sửa</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td><a href="/admin/users/detail?@item.Id">@item.UserName</a></td>
+            <td>@item.Email</td>
+            <td>@item.Name</td>
+            <td>@item.DiaChi</td>
+            <td><a href="/admin/users/edit?username=@item.UserName">Sửa</a> | <a href="/admin/users/delete?name=@item.UserName">Xóa</a></td>
+        </tr>
+    }
+</table>

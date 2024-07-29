@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+@{
+    WebPC.Models.DatabaseEntities db = new WebPC.Models.DatabaseEntities();
+    int id = ViewBag.Id;
+    List<WebPC.Models.LoaiSP> loaiSPs = db.LoaiSP.ToList();
+    List<WebPC.Models.Brand> brands = db.Brand.ToList();
+    WebPC.Models.SanPham Model = db.SanPham.Where(t => t.MaSP == id).FirstOrDefault();
+}
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+<h2>Chỉnh sửa sản phẩm</h2>
+<form action="/admin/product/edit/@Model.MaSP" method="post" enctype="multipart/form-data">
+    <table class="table table-bordered">
+        <input type="hidden" name="MaSP" value="@Model.MaSP" />
+        <tr>
+            <td><label class="form-label">Tên sản phẩm</label></td>
+            <td><input type="text" value="@Model.TenSP" class="form-control" id="TenSP" placeholder="Tên sản phẩm" name="TenSP" /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Giá</label></td>
+            <td><input type="text" value="@Model.Gia" class="form-control" id="Gia" placeholder="Giá tiền" name="Gia" /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Thông tin sản phẩm</label></td>
+            <td><input type="text" value="@Model.ThongTinSP" class="form-control" id="ThongTinSP" placeholder="Thông tin" name="ThongTinSP" /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Chọn ảnh</label></td>
+            <td>
+                <input type="file" class="form-control" id="Anh" name="Anh" src="~/Content/Images/product/@Model.Anh" />
+                <br />
+                <img id="preview" src="~/Content/Images/product/@Model.Anh" width="150" height="100" />
+            </td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Số lượng</label></td>
+            <td><input type="text" value="@Model.SoLuong" class="form-control" id="SoLuong" placeholder="Số lượng" name="SoLuong" /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Loại sản phẩm</label></td>
+            <td>
+                <select class="form-control" id="MaLoai" name="MaLoai">
+                    <option value="@Model.MaLoai">@Model.LoaiSP.TenLoai</option>
+                    @foreach (var item in loaiSPs)
+                    {
+                        <option value="@item.MaLoai">@item.TenLoai</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Thương hiệu</label></td>
+            <td>
+                <select class="form-control" id="BrandId" name="BrandId">
+                    <option value="@Model.BrandId">@Model.Brand.BrandName</option>
+                    @foreach (var item in brands)
+                    {
+                        <option value="@item.BrandId">
+                            @item.BrandName
+                        </option>
+                    }
+                </select>
+            </td>
+        </tr>
+    </table>
+    <button type="submit" class="btn btn-primary">Sửa</button>
+    <a href="/admin/product/index" class="btn">Huỷ</a>
+</form>
+<script>
+    Anh.onchange = evt => {
+        const [file] = Anh.files
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            $("#preview").removeClass("hidden");
+        }
+    }
+</script>

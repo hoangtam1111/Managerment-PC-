@@ -1,0 +1,30 @@
+﻿@model List<WebPC.Models.LoaiSP>
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Css/productIndex.css" rel="stylesheet" />
+<div class="insBreadcrumbs">
+    <ul>
+        <li>
+            <a href="/admin/home/index">Trang chủ</a> /
+        </li>
+        <li>
+            <a href="/admin/LoaiSP/index">Loại sản phẩm</a> /
+        </li>
+    </ul>
+</div>
+<a href="/admin/LoaiSP/insert">Thêm loại sản phẩm mới</a>
+<table class="table table-bordered">
+    <tr>
+        <th>Tên loại SP</th>
+        <th>Chỉnh sửa</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.TenLoai</td>
+            <td><a href="/admin/LoaiSP/update/@item.MaLoai">Sửa</a> | <a href="/admin/LoaiSP/delete/@item.MaLoai">Xóa</a></td>
+        </tr>
+    }
+</table>
+

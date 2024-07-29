@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Insert";
+}
+
+<h2>Insert</h2>
+<form action="/admin/LoaiSP/insert" method="post" enctype="multipart/form-data">
+    <table class="table table-bordered">
+        <tr>
+            <td><label class="form-label">Loại sản phẩm</label></td>
+            <td><input type="text" class="form-control" id="TenLoai" placeholder="Tên Loại" name="TenLoai" /></td>
+        </tr>
+    </table>
+    <button type="submit" class="btn btn-primary">Thêm</button>
+    <a href="/admin/LoaiSP" class="btn">Huỷ</a>
+</form>

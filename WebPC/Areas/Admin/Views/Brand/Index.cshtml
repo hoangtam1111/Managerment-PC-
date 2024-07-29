@@ -1,0 +1,31 @@
+﻿@model List<WebPC.Models.Brand>
+@{
+    ViewBag.Title = "Brand";
+}
+<link href="~/Css/productIndex.css" rel="stylesheet" />
+<div class="insBreadcrumbs">
+    <ul>
+        <li>
+            <a href="/admin/home/index">Trang chủ</a> /
+        </li>
+        <li>
+            <a href="/admin/brand/index">Thương hiệu</a> /
+        </li>
+    </ul>
+</div>
+<a href="/admin/brand/insert">Thêm thương hiệu mới</a>
+<table class="table table-bordered">
+    <tr>
+        <th>Tên thương hiệu</th>
+        <th>Logo</th>
+        <th>Chỉnh sửa</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.BrandName</td>
+            <td><img src="@item.BrandLogo" alt="Alternate Text" style="width:50px" /></td>
+            <td><a href="/admin/brand/update/@item.BrandId">Sửa</a> | <a href="/admin/brand/delete/@item.BrandId">Xóa</a></td>
+        </tr>
+    }
+</table>

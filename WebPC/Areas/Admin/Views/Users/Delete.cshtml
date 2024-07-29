@@ -1,0 +1,33 @@
+﻿@model WebPC.Identity.AppUser
+@{
+    ViewBag.Title = "Delete";
+}
+<link href="~/Css/Users.css" rel="stylesheet" />
+<form action="/admin/users/delete?name=@Model.UserName" method="post" enctype="multipart/form-data">
+    <div class="login">
+        <h2>Xóa tài khoản</h2>
+        <table class="table table-bordered">
+            <input type="hidden" name="name" value="@Model.UserName" />
+            <tr>
+                <td>Tài khoản</td>
+                <td>@Model.UserName</td>
+            </tr>
+            <tr>
+                <td>Họ tên</td>
+                <td>@Model.Name</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <td>Địa chỉ</td>
+                <td>@Model.DiaChi</td>
+            </tr>
+        </table>
+        <div class="action">
+            <button type="submit" class="btn action-1">Xóa</button>
+            <a href="/admin/users/index" class="btn action-2">Quay lại trang user</a>
+        </div>
+    </div>
+</form>

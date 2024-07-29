@@ -1,0 +1,15 @@
+﻿@model WebPC.Models.LoaiSP
+    ViewBag.Title = "Delete";
+}
+<h2>Bạn có muốn xóa loại sản phẩm này</h2>
+<form action="/admin/LoaiSP/delete/@Model.MaLoai" method="post" enctype="multipart/form-data">
+    <table class="table table-bordered">
+        <input type="hidden" name="MaLoai" value="@Model.MaLoai" />
+        <tr>
+            <td><label class="form-label">Tên Loại</label></td>
+            <td>@Model.TenLoai</td>
+        </tr>
+    </table>
+    <button type="submit" class="btn btn-primary">Xóa</button>
+    <a href="/admin/LoaiSP" class="btn">Huỷ</a>
+</form>

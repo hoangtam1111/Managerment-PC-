@@ -1,0 +1,19 @@
+﻿@model WebPC.Identity.AppUser
+@{
+    ViewBag.Title = "Insert";
+}
+<link href="~/Css/Users.css" rel="stylesheet" />
+<form action="/admin/users/insert" method="post" enctype="multipart/form-data">
+    <div class="login">
+        <h2>Tạo mới tài khoản</h2>
+        <input type="text" class="form-control" name="Name" placeholder="Họ Tên" />
+        <input type="email" class="form-control" name="Email" placeholder="Email của bạn" />
+        <input type="text" class="form-control" name="DiaChi" placeholder="Địa chỉ" />
+        <input type="text" class="form-control" name="Username" placeholder="Tài khoản" />
+        <input type="password" class="form-control" name="Password" placeholder="Nhập mật khẩu" />
+        <div class="action">
+            <button type="submit" class="btn action-1">Lưu</button>
+            <a href="/admin/users/index" class="btn action-2">Quay lại trang user</a>
+        </div>
+    </div>
+</form>

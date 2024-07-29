@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+}
+@{
+    WebPC.Models.DatabaseEntities db = new WebPC.Models.DatabaseEntities();
+    int id = ViewBag.Id;
+    WebPC.Models.SanPham sp = db.SanPham.Where(t => t.MaSP == id).FirstOrDefault();
+}
+
+<link href="~/Css/productDetail.css" rel="stylesheet" />
+<div class="product">
+    <div class="row">
+        <h2>Tên sản phẩm: @sp.TenSP</h2>
+        <div class="col-lg-6 col-md-6 col-12">
+            <img src="~/Content/Images/product/@sp.Anh" />
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+            <h3 class="product__price">
+                Giá tiền: @sp.Gia.ToString("N0")đ
+            </h3>
+            <div class="product__info">
+                <h4>Thông tin sản phẩm</h4>
+                @sp.ThongTinSP
+            </div>
+            <div>
+                <a href="/admin/product" class="btn btn-primary">Quay lại QL sản phẩm</a>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Delete";
+}
+
+@{
+    WebPC.Models.DatabaseEntities db = new WebPC.Models.DatabaseEntities();
+    int id = ViewBag.Id;
+    WebPC.Models.SanPham sp = db.SanPham.Where(t => t.MaSP == id).FirstOrDefault();
+}
+<link href="~/Css/productDetail.css" rel="stylesheet" />
+<form action="/admin/product/delete/@sp.MaSP" method="post" enctype="multipart/form-data class="d-flex">
+    <div class="product">
+        <input type="hidden" name="MaSP" value="@sp.MaSP" />
+        <div class="row">
+            <h2>Tên sản phẩm: @sp.TenSP</h2>
+            <div class="col-lg-6 col-md-6 col-12">
+                <img src="~/Content/Images/product/@sp.Anh" />
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <h3 class="product__price">
+                    Giá tiền: @sp.Gia.ToString("N0")đ
+                </h3>
+                <h3 class="product__price">
+                    Số lượng: @sp.SoLuong
+                </h3>
+                <div class="product__info">
+                    <h4>Thông tin sản phẩm</h4>
+                    @sp.ThongTinSP
+                </div>
+                <h2>Bạn có muốn xoá ?</h2>
+                <ul class="list-action">
+                    <li>
+                        <button class="btn buy" type="submit">Xoá</button>
+                    </li>
+                    <li>
+                        <a href="/admin/product" class="btn btn-primary">Huỷ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</form>
